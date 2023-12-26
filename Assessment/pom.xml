@@ -1,0 +1,358 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Assessment</groupId>
+	<artifactId>Assessment</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>Assessment</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<aspectj.version>1.8.13</aspectj.version>
+		<allure.version>1.5.4</allure.version>
+		<suiteXMLFile>testng.xml</suiteXMLFile>
+		<skipTests>false</skipTests>
+		<project.basedir>C:\Users\eclipse-workspace\Assessment</project.basedir>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+				<!--	 <includes> <include>UcrewRunnner.java</include> </includes> -->
+				<suiteXmlFiles>
+				<suiteXmlFile>testng.xml</suiteXmlFile> </suiteXmlFiles>
+					<parallel>methods</parallel>
+					<useUnlimitedThreads>true</useUnlimitedThreads>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>timestamp-property</id>
+						<phase>test</phase>
+						<goals>
+							<goal>timestamp-property</goal>
+						</goals>
+						<configuration>
+							<locale>en_US</locale>
+							<name>mavenTimestamp</name>
+							<pattern>DD_MM_yyyy_HH_mm_ss_SSS</pattern>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Latest Cucumber JVM Reports Plugin -->
+			<plugin>
+				<groupId>net.masterthought</groupId>
+				<artifactId>maven-cucumber-reporting</artifactId>
+				<version>5.3.0</version>
+
+				<executions>
+					<execution>
+						<id>execution</id>
+						<phase>test</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<projectName>ucrewApplication_AWS</projectName> <!-- Replace with project name -->
+							<outputDirectory>target/cucumber-reports/advanced-reports/${mavenTimestamp}</outputDirectory>
+							<!-- <cucumberOutput>target/cucumber-reports/cucumber.json</cucumberOutput> -->
+							<buildNumber>1</buildNumber>
+							<!-- <parallelTesting>false</parallelTesting> -->
+							<skip>false</skip>
+							<inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
+							<jsonFiles> <!-- supports wildcard or name pattern -->
+								<param>**/*.json</param>
+							</jsonFiles> <!-- optional, defaults to outputDirectory if not specified -->
+							<classificationDirectory>${project.build.directory}/cucumber-reports</classificationDirectory>
+							<checkBuildResult>false</checkBuildResult>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.10.v20150310</version>
+				<configuration>
+					<webAppSourceDirectory>${project.build.directory}/site/allure-maven-plugin</webAppSourceDirectory>
+					<stopKey>stop</stopKey>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>2.13.9</version>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+		<!-- <dependency> <groupId>com.aventstack</groupId> <artifactId>extentreports</artifactId> 
+			<version>4.0.9</version> </dependency> -->
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>2.17.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<!-- use 2.9.1 for Java 7 projects -->
+			<version>3.11.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>3.0.0-M5</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>4.3.1</version>
+			<!--<scope>test</scope> -->
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>6.9.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+	
+	
+	<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+	<dependency>
+	    <groupId>com.googlecode.json-simple</groupId>
+	    <artifactId>json-simple</artifactId>
+	    <version>1.1</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.jdom/jdom -->
+	<dependency>
+	    <groupId>org.jdom</groupId>
+	    <artifactId>jdom</artifactId>
+	    <version>2.0.2</version>
+	</dependency>
+	
+	
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>6.9.0</version>
+			<!--<scope>test</scope> -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.11.3</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13</version>
+			<!--<scope>test</scope> -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>29.0-jre</version>
+		</dependency>
+
+		<!-- ojdbc7.jar -->
+		
+
+		
+	
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.15.0</version>
+		</dependency>
+
+		
+		
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-core</artifactId>
+			<version>6.9.0</version>
+		</dependency>
+		 <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>4.9.1</version> <!-- Use the latest version -->
+    </dependency>
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java8 -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java8</artifactId>
+			<version>6.9.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<version>6.9.0</version>
+			<!--<scope>test</scope> -->
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>  
+		
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>0.15</version>
+		</dependency>
+		
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<version>4.16.1</version>
+		</dependency>
+
+		
+
+		
+		
+		
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>6.9.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>4.1.7</version>
+			<!-- <version>5.0.9</version> -->
+		</dependency>
+		
+		
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>gherkin</artifactId>
+			<version>15.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-jvm</artifactId>
+			<version>6.9.0</version>
+			<type>pom</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>tech.grasshopper</groupId>
+			<artifactId>extentreports-cucumber6-adapter</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/tech.grasshopper/extent-pdf-report -->
+		<dependency>
+		    <groupId>tech.grasshopper</groupId>
+		    <artifactId>extent-pdf-report</artifactId>
+		    <version>2.7.0</version>
+		</dependency>
+
+		
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.16.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>4.3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.rcarz</groupId>
+			<artifactId>jira-client</artifactId>
+			<version>0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sikulix</groupId>
+			<artifactId>sikulixapi</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

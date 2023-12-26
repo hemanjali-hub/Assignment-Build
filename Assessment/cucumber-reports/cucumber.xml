@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="106.985">
+<testcase classname="BOLT Ingestion" name="TC11_BOLT Ingestion Schema at BM end_Single Bag tag_Create Forward message" time="105.986">
+<system-out><![CDATA[Given Fetch required data from Shares having scenario id "S104479" for "Two Leg" flight.passed
+When Create BOLT AHL file providing data....................................passed
+And Forward file for "Single" Leg...........................................passed
+And Hit getBoltFileByBagTag service with captured bagtag number.............passed
+Then Validate fields as per mapping document for "Forward File".............passed
+]]></system-out>
+</testcase>
+</testsuite>

@@ -1,0 +1,172 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2021-10-26T18:51:03.663Z",
+        "before": [
+          {
+            "result": {
+              "duration": 846000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "com.ual.autorush.steps.Hooks.beforeHook(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "line": 72,
+        "name": "TC11_BOLT Ingestion Schema at BM end_Single Bag tag_Create Forward message",
+        "description": "",
+        "id": "bolt-ingestion;tc11-bolt-ingestion-schema-at-bm-end-single-bag-tag-create-forward-message",
+        "after": [
+          {
+            "result": {
+              "duration": 6551000000,
+              "status": "passed"
+            },
+            "match": {
+              "location": "com.ual.autorush.steps.Hooks.After(io.cucumber.java.Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 3492000000,
+              "status": "passed"
+            },
+            "line": 73,
+            "name": "Fetch required data from Shares having scenario id \"S104479\" for \"Two Leg\" flight",
+            "match": {
+              "arguments": [
+                {
+                  "val": "S104479",
+                  "offset": 52
+                },
+                {
+                  "val": "Two Leg",
+                  "offset": 66
+                }
+              ],
+              "location": "com.ual.autorush.steps.RestAssuredSteps.fetch_required_data_from_shares_having_scenario_id_something_for_something_flight(java.lang.String,java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 71366000000,
+              "status": "passed"
+            },
+            "line": 74,
+            "name": "Create BOLT AHL file providing data",
+            "match": {
+              "location": "com.ual.autorush.steps.BoltAhlFileCreation.create_bolt_ahl_file_providing_data(io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "NoOfCustomers",
+                  "BagChecked",
+                  "BagReceived",
+                  "Leg",
+                  "isBagRoutingSameAsCustomerRouting"
+                ]
+              },
+              {
+                "cells": [
+                  "1",
+                  "1",
+                  "0",
+                  "two",
+                  "Yes"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 19357000000,
+              "status": "passed"
+            },
+            "line": 77,
+            "name": "Forward file for \"Single\" Leg",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Single",
+                  "offset": 18
+                }
+              ],
+              "location": "com.ual.autorush.steps.BoltAhlFileCreation.forward_file_for_something_leg(java.lang.String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2650000000,
+              "status": "passed"
+            },
+            "line": 78,
+            "name": "Hit getBoltFileByBagTag service with captured bagtag number",
+            "match": {
+              "location": "com.ual.autorush.steps.RestAssuredSteps.hit_getboltfilebybagtag_service_with_captured_bagtag_number()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1588000000,
+              "status": "passed"
+            },
+            "line": 79,
+            "name": "Validate fields as per mapping document for \"Forward File\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Forward File",
+                  "offset": 45
+                }
+              ],
+              "location": "com.ual.autorush.steps.RestAssuredSteps.validate_fields_as_per_mapping_document_for_something(java.lang.String,io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "hasWTR",
+                  "fileType",
+                  "fileStatus"
+                ]
+              },
+              {
+                "cells": [
+                  "false",
+                  "FWD",
+                  "OPEN"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@fwd"
+          },
+          {
+            "name": "@bolt"
+          }
+        ]
+      }
+    ],
+    "name": "BOLT Ingestion",
+    "description": "",
+    "id": "bolt-ingestion",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/features/BOLTIngestion/BOLT%20Ingestion.feature",
+    "tags": []
+  }
+]
